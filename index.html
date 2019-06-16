@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>CSS 滤镜与混合模式</title>
+
+	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+	<meta name="author" content="Hakim El Hattab">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/monokai.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section>
+			<h1>CSS 滤镜与混合模式</h1>
+			<h3>FDCon 2019 见闻 By 业枫</h3>
+			<p>
+				<small>2019-06</small>
+			</p>
+		</section>
+
+		<section>
+			<h2>前言</h2>
+			<img src="images/1.jpg" alt="" width="240">
+			<img src="images/2.jpg" alt="" width="240">
+			<p><small>5月份参加了FDCon 2019，在此挑一个印象比较深刻的演讲做分享。<br />张鑫旭的《滤镜与混合模式》算是本次大会演讲的一股泥石流，只有这一个关于CSS的主题，因此和大家分享一下见闻和想法。</small></p>
+		</section>
+
+		<section>
+			<h2>讲了什么？</h2>
+			<ul>
+				<li>00后都快20岁了 <span class="fragment fade-left" style="display: inline-block;">👈 标题党</span></li>
+				<li>滤镜</li>
+				<li>混合模式</li>
+				<li>滤镜与混合模式</li>
+			</ul>
+			<p class="fragment fade-up">让我们开始吧~</p>
+
+			<aside class="notes">
+				解释一下，第一部分比较标题党，其实是关于浏览器兼容性问题。认为现在的生产场景完全可以使用CSS滤镜和混合模式。
+				之后两个部分分别介绍了CSS滤镜和混合模式的示例介绍。
+				最后一个部分则是两种功能同时使用。
+			</aside>
+		</section>
+
+		<!-- Example of nested vertical slides -->
+		<section>
+			<section>
+				<h2>1、兼容性问题？</h2>
+				<p>现在都9102年，00后都快20岁了<br />还在纠结兼容性问题？😓</p>
+				<aside class="notes">
+					好戏开场了，让我们看看第一部分。
+				</aside>
+			</section>
+			<section>
+				<h2>来看看浏览器的支持情况</h2>
+				<h3>CSS 滤镜</h3>
+				<img src="images/caniuse1.PNG" alt="css filter">
+			</section>
+			<section>
+				<h3>CSS 混合模式</h3>
+				<img src="images/caniuse2.PNG" alt="css blend mode">
+			</section>
+			<section>
+				<h2>总结一下</h2>
+				<ul>
+					<li>IE/Edge 告辞😭</li>
+					<li>中后台/内部系统 赞爆😍</li>
+					<li>
+						移动端
+						<ul>
+							<li>运营活动 没有问题😘</li>
+							<li>国民级产品 渐进增强😜</li>
+							<li>非国民级产品 没有问题😘<br/><small>（个人认为取决于目标用户群体，用渐进增强会更优）</small></li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>2、CSS 滤镜</h2>
+				<p>先来简单了解一下👀</p>
+			</section>
+			<section>
+				<table>
+					<thead>
+					<tr>
+						<th>属性</th>
+						<th>说明</th>
+					</tr>
+					</thead>
+					<tbody style="font-size: 32px">
+					<tr><td>filter: blur(5px)</td><td>模糊</td></tr>
+					<tr><td>filter: brightness(1.4)</td><td>亮度</td></tr>
+					<tr><td>filter: contrast(200%)</td><td>对⽐度</td></tr>
+					<tr><td>filter: drop-shadow(5px 5px 12px white)</td><td>投影</td></tr>
+					<tr><td>filter: grayscale(50%)</td><td>灰度</td></tr>
+					<tr><td>filter: hue-rotate(90deg)</td><td>⾊调变化</td></tr>
+					<tr><td>filter: invert(75%)</td><td>反相</td></tr>
+					<tr><td>filter: opacity(25%)</td><td>透明度</td></tr>
+					<tr><td>filter: saturate(230%)</td><td>饱和度</td></tr>
+					<tr><td>filter: sepia(60%)</td><td>褐⾊</td></tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<h3>模糊</h3>
+				<p>filter: blur(5px)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: blur(5px)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>亮度</h3>
+				<p>filter: brightness(1.4)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: brightness(1.4)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>对⽐度</h3>
+				<p>filter: contrast(200%)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: contrast(200%)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>投影</h3>
+				<p>filter: drop-shadow(5px 5px 12px white)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: drop-shadow(5px 5px 12px white)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>灰度</h3>
+				<p>filter: grayscale(50%)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: grayscale(50%)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>⾊调变化</h3>
+				<p>filter: hue-rotate(90deg)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: hue-rotate(90deg)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>反相</h3>
+				<p>filter: invert(75%)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: invert(75%)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>透明度</h3>
+				<p>filter: opacity(25%)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: opacity(25%)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<p>和opacity区别：部分浏览器启⽤硬件加速，更加耗电</p>
+			</section>
+			<section>
+				<h3>饱和度</h3>
+				<p>filter: saturate(230%)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: saturate(230%)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+			<section>
+				<h3>褐⾊</h3>
+				<p>filter: sepia(60%)</p>
+				<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				<img style="filter: sepia(60%)" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>3、你可能用过的 CSS 滤镜</h2>
+				<p>模糊、投影、灰度滤镜应⽤举例</p>
+			</section>
+			<section>
+				<h3>弹窗背景模糊</h3>
+				<img src="images/filter1.PNG" alt="" width="70%">
+			</section>
+			<section>
+				<h3>不规则投影</h3>
+				<span style="display: inline-block;vertical-align: top;">
+					<p>box-shadow</p>
+					<img style="background: none;border: none;box-shadow: 0 6px 12px white" src="//img.alicdn.com/tfs/TB1thRrolLoK1RjSZFuXXXn0XXa-110-110.png" width="220px">
+				</span>
+				<span style="display: inline-block;vertical-align: top;margin-left: 40px">
+					<p>filter: drop-shadow</p>
+					<img style="background: none;border: none;box-shadow: none;filter: drop-shadow(0 6px 12px white)" src="//img.alicdn.com/tfs/TB1thRrolLoK1RjSZFuXXXn0XXa-110-110.png" width="220px">
+				</span>
+			</section>
+			<section>
+				<h3>图片变灰</h3>
+				<p>filter: grayscale(100%)</p>
+				<img style="filter: grayscale(100%)" src="//img.alicdn.com/tfs/TB1thRrolLoK1RjSZFuXXXn0XXa-110-110.png" width="220px">
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>4、你应该没用过的 CSS 滤镜</h2>
+				<p>更高一级的应⽤举例📷 </p>
+			</section>
+			<section>
+				<h3>局部模糊，径向模糊⽐度</h3>
+				<pre><code class="hljs" data-trim>
+.filter-blur {
+  position: absolute;
+  filter: blur(20px);
+  mask-image: radial-gradient(transparent, transparent 10%, black 60%);
+}
+				</code></pre>
+				<style>
+					.filter-blur {
+						position: absolute;
+						filter: blur(20px);
+						-webkit-mask-image: radial-gradient(transparent, transparent 10%, black 60%);
+						mask-image: radial-gradient(transparent, transparent 10%, black 60%);
+					}
+				</style>
+				<span style="position: relative;display: inline-block">
+					<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				</span>
+				<span style="position: relative;display: inline-block">
+					<img src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+					<img class="filter-blur" style="left: 8px; top: 0" src="//img.alicdn.com/tfs/TB12FYKn21TBuNjy0FjXXajyXXa-1920-1080.jpg" width="480">
+				</span>
+			</section>
+			<section>
+				<h3>颜色转换</h3>
+				<p>CSS filter滤镜理论上可以实现任意⾊值转换😎 <a href="https://www.zhangxinxu.com/sp/filter.html" target="_blank">👉 工具</a></p>
+				<iframe style="background: white" data-src="https://www.zhangxinxu.com/sp/filter.html" width="800" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+			</section>
+			<section>
+				<h3>色彩动画</h3>
+				<pre><code class="hljs" data-trim>
+.flow-colorful {
+  height: 200px;
+  background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, purple);
+  animation: hue 6s linear infinite;
+}
+@keyframes hue {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+				</code></pre>
+				<style>
+					.flow-colorful {
+						height: 200px;
+						background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, purple);
+						animation: hue 6s linear infinite;
+					}
+					@keyframes hue {
+						from {
+							filter: hue-rotate(0deg);
+						}
+						to {
+							filter: hue-rotate(360deg);
+						}
+					}
+				</style>
+				<div class="flow-colorful"></div>
+			</section>
+			<section>
+				<h3>文字色彩动画</h3>
+				<pre><code class="hljs" data-trim>
+.flow-colorful-text {
+  font-size: 100px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, purple);
+  animation: hue 6s linear infinite;
+}
+				</code></pre>
+				<style>
+					.flow-colorful-text {
+						font-size: 100px;
+						-webkit-background-clip: text;
+						-webkit-text-fill-color: transparent;
+						background-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, purple);
+						animation: hue 6s linear infinite;
+					}
+				</style>
+				<p class="flow-colorful-text">大白分享会(●—●)</p>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>5、更进一步的滤镜技术</h2>
+				<p>滤镜特效🌈</p>
+			</section>
+			<section>
+				<h3>融合粘滞效果</h3>
+				<style>
+					.blur-ball-wrap {
+						position: relative;
+						filter: blur(10px) contrast(5);
+						width: 600px;
+						height: 450px;
+						overflow: hidden;
+						display: inline-block;
+					}
+					.blur-ball {
+						position: absolute;
+						border-radius: 50%;
+						background: magenta;
+					}
+					.blur-ball-l {
+						left: 200px;
+						top: 100px;
+						width: 200px;
+						height: 200px;
+					}
+					.blur-ball-s {
+						left: 250px;
+						top: -100px;
+						width: 100px;
+						height: 100px;
+						animation: blur-ball 4s ease-in-out infinite;
+					}
+					@keyframes blur-ball {
+						0% {
+							transform: translateY(0);
+						}
+						20% {
+							transform: translateY(200px);
+						}
+						80% {
+							transform: translateY(400px);
+						}
+						100% {
+							transform: translateY(600px);
+						}
+					}
+				</style>
+				<div class="blur-ball-wrap">
+					<div class="blur-ball blur-ball-l"></div>
+					<div class="blur-ball blur-ball-s"></div>
+				</div>
+				<pre style="display:inline-block;width:600px;height:450px;vertical-align:top;"><code class="hljs" data-trim>
+// DOM
+&lt;div class="parent"&gt;
+  &lt;div class="children"&gt;&lt;/div&gt;
+  &lt;div class="children"&gt;&lt;/div&gt;
+&lt;/div&gt;
+// CSS
+.parent {
+  filter: blur(10px) contrast(5);
+}
+.children {
+  background: magenta;
+}
+				</code></pre>
+				<small>文字消失不见了😣</small>
+			</section>
+			<section>
+				<h3>更多示例，作者：Chokcoco</h3>
+				<iframe style="display: inline-block; vertical-align: top;" data-src="//codepen.io/Chokcoco/embed/aMRPjR/?height=500&theme-id=0&default-tab=result" width="400" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+				<iframe style="display: inline-block; vertical-align: top;" data-src="//codepen.io/Chokcoco/embed/gZVjJw/?height=500&theme-id=0&default-tab=result" width="800" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+			</section>
+		</section>
+
+		<section>
+			<h2>6、引入SVG滤镜</h2>
+			<p>CSS filter动效的潜⼒⽆限，详情请见：<a href="https://www.zhangxinxu.com/wordpress/2017/12/svg-filter-fuse-gooey-effect/" target="_blank">这里</a></p>
+			<pre><code class="hljs" data-trim>
+/* 外链 */
+.filter {
+  filter: url("filter.svg#filter-id");
+}
+/* 内联 */
+.filter {
+  filter: url("#filter-id");
+}
+			</code></pre>
+			<p>
+				举两个栗子🌰 &nbsp;
+				<a href="https://www.zhangxinxu.com/study/201712/gooey-ball-drag.html" target="_blank">👉1</a>
+				&nbsp;
+				<a href="https://www.zhangxinxu.com/study/201712/gooey-share.html" target="_blank">👉2</a>
+			</p>
+		</section>
+
+		<section>
+			<section>
+				<h2>7、混合模式</h2>
+				<p>简单了解CSS混合模式</p>
+			</section>
+			<section>
+				<h3>相关属性</h3>
+				<p style="text-align: left"><b>background-blend-mode</b><br />⽤于混合元素背景图案、渐变和颜⾊</p>
+				<p style="text-align: left"><b>mix-blend-mode</b><br />⽤于元素与元素之间的混合</p>
+				<p style="text-align: left"><b>isolation：isolate</b><br />⽤在祖先元素上，限制mix-blend-mode混合模式应⽤范围</p>
+			</section>
+			<section>
+				<table>
+					<thead style="font-size: 26px">
+					<tr>
+						<th>属性</th>
+						<th>说明</th>
+					</tr>
+					</thead>
+					<tbody style="font-size: 22px">
+					<tr><td>mix-blend-mode: normal </td><td>正常</td></tr>
+					<tr><td>mix-blend-mode: multiply </td><td>正⽚叠底</td></tr>
+					<tr><td>mix-blend-mode: screen </td><td>滤⾊</td></tr>
+					<tr><td>mix-blend-mode: overlay </td><td>叠加</td></tr>
+					<tr><td>mix-blend-mode: darken </td><td>变暗</td></tr>
+					<tr><td>mix-blend-mode: lighten </td><td>变亮</td></tr>
+					<tr><td>mix-blend-mode: color-dodge </td><td>颜⾊减淡</td></tr>
+					<tr><td>mix-blend-mode: color-burn </td><td>颜⾊加深</td></tr>
+					<tr><td>mix-blend-mode: hard-light </td><td>强光</td></tr>
+					<tr><td>mix-blend-mode: soft-light </td><td>柔光</td></tr>
+					<tr><td>mix-blend-mode: difference </td><td>差值</td></tr>
+					<tr><td>mix-blend-mode: exclusion </td><td>排除</td></tr>
+					<tr><td>mix-blend-mode: hue </td><td>⾊相</td></tr>
+					<tr><td>mix-blend-mode: saturation </td><td>饱和度</td></tr>
+					<tr><td>mix-blend-mode: color </td><td>颜⾊</td></tr>
+					<tr><td>mix-blend-mode: luminosity </td><td>亮度</td></tr>
+					</tbody>
+				</table>
+			</section>
+			<section>
+				<p>background-blend-mode: multiply</p>
+				<a style="display: inline-block; vertical-align: top;" href="https://leaverou.github.io/css3patterns/" target="_blank"><img width="600" src="images/css3patterns.PNG" alt=""></a>
+				<!--<iframe style="display: inline-block; vertical-align: top;" data-src="//leaverou.github.io/css3patterns/" width="600" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen> </iframe>-->
+				<iframe style="display: inline-block; vertical-align: top;" data-src="//codepen.io/Chokcoco/embed/wJbtk/?height=500&theme-id=0&default-tab=result" width="600" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen> </iframe>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>8、混合模式与Web开发</h2>
+			</section>
+			<section>
+				<p>mix-blend-mode:difference</p>
+				<pre><code class="hljs" data-trim>
+.blend-difference-text {
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.blend-difference-bg {
+  background: linear-gradient(#fff 50%, #191919 50%);
+  animation: spin 5s linear infinite;
+}
+				</code></pre>
+				<style>
+					.blend-difference-text {
+						position: relative;
+						font-size: 100px;
+						color: #fff;
+						mix-blend-mode: difference;
+						/*overflow: hidden;*/
+					}
+					.blend-difference-bg {
+						/*content: "";*/
+						position: absolute;
+						top: -1200px;
+						left: 0;
+						width: 100%;
+						height: 2570px;
+						background: linear-gradient(#fff 50%, #191919 50%);
+						animation: spin 5s linear infinite;
+					}
+					@keyframes spin {
+						from { transform: rotate(0deg) }
+						to { transform: rotate(360deg) }
+					}
+				</style>
+				<div style="overflow: hidden; position: relative">
+					<div class="blend-difference-bg"></div>
+					<p class="blend-difference-text">大白分享会(●—●)</p>
+				</div>
+			</section>
+			<section>
+				<p>mix-blend-mode:darken/lighten</p>
+				<p>darken：哪个颜⾊深使⽤哪个颜⾊<br />lighten：哪个颜⾊浅使⽤哪个颜⾊</p>
+				<pre><code class="hljs" data-trim>
+.icon-color {
+  background: #cd5c5c url("//gw.alipayobjects.com/zos/rmsportal/fVyyVdYqEXyjmxlWLtVw.png");
+  background-blend-mode: lighten;
+}
+				</code></pre>
+				<style>
+					.icon-color {
+						background: #cd5c5c url("//gw.alipayobjects.com/zos/rmsportal/fVyyVdYqEXyjmxlWLtVw.png") no-repeat center/contain;
+						background-blend-mode: lighten;
+					}
+				</style>
+				<span style="position: relative;display: inline-block; vertical-align: top">
+					<img src="//gw.alipayobjects.com/zos/rmsportal/fVyyVdYqEXyjmxlWLtVw.png" width="480">
+				</span>
+				<span style="position: relative;display: inline-block; width: 480px; height: 240px;" class="icon-color">
+				</span>
+			</section>
+			<section>
+				<p>mix-blend-mode:screen</p>
+				<p>很适⽤霓虹辉光效果</p>
+				<style>
+					.blend-screen-wrap {
+						position: relative;
+						width: 660px;
+						margin-left: 310px;
+						top: -430px;
+					}
+					.blend-screen-wrap img {
+						display: block;
+						border: none !important;
+						margin: 0 !important;
+						max-width: none !important;
+						max-height: none !important;
+					}
+					.blend-screen {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						mix-blend-mode:screen;
+					}
+				</style>
+				<img src="http://avatar.zhangyoubao.com/swxf/postimages/7a9/de7/965/139zHw1tB.jpg" width="500" />
+				<img src="http://img01.jituwang.com/180723/256621-1PH319313951.jpg" width="513" />
+				<div class="blend-screen-wrap fragment">
+					<img src="http://avatar.zhangyoubao.com/swxf/postimages/7a9/de7/965/139zHw1tB.jpg" width="660" />
+					<img class="blend-screen" src="http://img01.jituwang.com/180723/256621-1PH319313951.jpg" />
+				</div>
+			</section>
+			<section>
+				<h3>可以用在视频上！</h3>
+				<img src="images/video-blend.PNG" alt="">
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>9、滤镜与混合模式</h2>
+				<p>CSS滤镜和混合模式同时应⽤案例</p>
+			</section>
+			<section>
+				<h3>静态图片处理</h3>
+				<pre><code class="hljs" data-trim>
+.img-blend-filter {
+  background: rgba(238,179,163,.8) url("images/people.jpg");
+  background-blend-mode: soft-light;
+}
+				</code></pre>
+				<style>
+					.img-blend-filter {
+						position: relative;
+						display: inline-block;
+						width: 400px;
+						height: 400px;
+						vertical-align: top;
+						margin: 15px 0;
+						border: 4px solid #fff;
+						box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+						background: rgba(238,179,163,.8) url("images/people.jpg") no-repeat center/contain;
+						background-blend-mode: soft-light;
+						filter: contrast(1.1);
+					}
+				</style>
+				<img src="images/people.jpg" width="400">
+				<span class="img-blend-filter"></span>
+			</section>
+			<section>
+				<h3>静态图像处理-CSSgram项⽬</h3>
+				<a href="https://una.im/CSSgram/" target="_blank">
+					<img src="images/cssgram.PNG" alt="" width="800">
+				</a>
+			</section>
+			<section>
+				<h3>如何上传到服务器或者下载到本地呢？🤔</h3>
+				<div class="fragment">
+					<p>SVG foreignObject 💡</p>
+					<pre><code class="hljs" data-trim>
+&lt;svg&gt;
+	&lt;foreignObject&gt;
+		&lt;img src="..." alt="..."&gt;
+	&lt;/foreignObject&gt;
+&lt;/svg&gt;
+				</code></pre>
+				</div>
+			</section>
+			<section>
+				<p style="text-align: left">1. SVG &lt;foreignObject&gt;字符串（图像转为base64嵌⼊）；</p>
+				<p style="text-align: left">2. 创建⼀个Image对象，src为data:image/svg+xml;charset=utf8,&lt;svg…（上⾯的SVG字符串）；</p>
+				<p style="text-align: left">3. 创建⼀个Canvas画布，把上⾯的Image对象绘制在画布上；</p>
+				<p style="text-align: left">4. canvas.toDateURL()或者canvas.toBlob()得到合成后的图像数据。</p>
+				<a href="https://www.zhangxinxu.com/wordpress/2019/04/save-css-filter-blend-mode-image/" target="_blank">👉 详解</a>
+			</section>
+		</section>
+		
+		<section>
+			<h2>感谢观看</h2>
+			<p>想要了解更多，可以参看张鑫旭博客中的相关资料：<a href="https://www.zhangxinxu.com/wordpress/2019/06/fdcon2019-css-share/" target="_blank">这里</a></p>
+			<p>以及大会资料：<a href="https://shimo.im/docs/VXEZSWMLxlw4XB2M/read" target="_blank">点这里👏</a></p>
+		</section>
+
+	</div>
+
+</div>
+
+<script src="js/reveal.js"></script>
+
+<script>
+
+	// More info https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		width: 1280,
+		height: 700,
+
+		controls: true,
+		progress: true,
+		center: true,
+		hash: true,
+
+		transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+		// More info https://github.com/hakimel/reveal.js#dependencies
+		dependencies: [
+			{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+			{ src: 'plugin/highlight/highlight.js', async: true },
+			{ src: 'plugin/search/search.js', async: true },
+			{ src: 'plugin/zoom-js/zoom.js', async: true },
+			{ src: 'plugin/notes/notes.js', async: true }
+		]
+	});
+
+</script>
+
+</body>
+</html>
